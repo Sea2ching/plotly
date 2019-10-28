@@ -1,0 +1,23 @@
+import requests
+from bs4 import BeautifulSoup
+
+
+def gethtml(url):
+    r=requests.get(url,timeout=30)
+    r.encoding=r.apparent_encoding
+    return r.text
+
+def expl(key):
+    soup=BeautifulSoup(html,'html.parser')
+    a=soup.find_all('li')#找到所有li标签
+    for i in a:
+        try:
+            c=i.find('a',id=key)#找到具体a标签
+            if c:#如果找到了，则打印li标签里的p标签的内容
+                print(i.p)                
+        except:
+            continue
+        
+        
+url='https://plot.ly/python/reference/'
+html=gethtml(url)
